@@ -1,16 +1,82 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>CS 425 Assignment 0</title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="style.css">
-    <script src="assignment0.js" type=""></script>
+	<meta charset="UTF-8">
+	<title>CS 425 Assignment 0</title>
+	<script src="assignment0.js" type=""></script>
+
 </head>
+
+<style>
+	body{
+		background-color: rgb(133, 133, 133);
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	#glcanvas{
+		position: absolute;
+		left: 30%;
+		top: 20px
+		width: 90%
+		height: 90%;
+		overflow: auto;
+		background-color: white;
+	}
+</style>
+
+<script type = "text/javascript">
+	
+	function updateColorGL(){
+		var r = parseInt(document.querySelector("#sliderR").value)/255.0;
+		var g = parseInt(document.querySelector("#sliderG").value)/255.0;
+		var b = parseInt(document.querySelector("#sliderB").value)/255.0;
+		var a = parseInt(document.querySelector("#sliderA").value)/255.0;
+	// console.log(r, g, b);
+	gl.clearColor(r, g, b, a);
+	gl.clear(gl.COLOR_BUFFER_BIT);
+	}
+
+	function updateNumTri(){
+		var t = parseInt(document.querySelector("#sliderNum").value);
+	}
+
+	function main(){
+		var canvas = document.querySelector("#glcanvas");
+		gl = canvas.getContext("webgl");
+		gl.clearColor(1, 1, 1, 1.0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+	}
+
+	window.onload = main;
+
+</script>
+
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="config"><br>
-    </div>
+
+	<input id="sliderR" type="range" min="0" max="255" value="255" oninput="updateColorGL()">
+	<label for="sliderR">Red</label><br>
+	<input id="sliderG" type="range" min="0" max="255" value="255" oninput="updateColorGL()">
+	<label for="sliderG">Green</label><br>
+	<input id="sliderB" type="range" min="0" max="255" value="255" oninput="updateColorGL()">
+	<label for="sliderB">Blue </label><br>
+	<label for="sliderNum">Alpha</label><br>
+	<input id="sliderA" type="range" min="0" max="255" value="1" oninput="updateColorGL()"><br>
+	<label for="sliderNum">Number of Triangles</label><br>
+	<input id="sliderNum" type="range" min="1" max="10" value="1" oninput="updateNumTri()"><br>
+	
+	<label for="inFile">Choose a JSON file to upload:</label><br>
+	<input type="file" id="inFile" name="inFile" accept=".json" /><br><br>
+	
+	<fieldset>
+  	<legend>Change Mode</legend>
+  	<div>
+    	<input type="checkbox" id="json" name="jsonMode" value="json" />
+   	<label for="json">JSON</label><br>
+  	</div>
+	</fieldset>
+
+
+	<canvas id="glcanvas"> </canvas>
 </body>
+
 </html>
+	
